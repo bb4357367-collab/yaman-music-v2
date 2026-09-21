@@ -144,18 +144,27 @@ async function handleCommand(interaction, player) {
                 queue.insertTrack(result.tracks[0], 0);
                 return interaction.followUp(`⏱️ | Inserted **${result.tracks[0].title}** to the top of the queue!`);
             } else {
-                const { track } = await player.play(interaction.member.voice.channel, result, {
-                    nodeOptions: {
-                        metadata: {
-                            channel: interaction.channel
+                try {
+                    const { track } = await player.play(interaction.member.voice.channel, result, {
+                        nodeOptions: {
+                            metadata: {
+                                channel: interaction.channel
+                            },
+                            leaveOnEmpty: true,
+                            leaveOnEmptyCooldown: 300000,
+                            leaveOnEnd: true,
+                            leaveOnEndCooldown: 300000,
                         }
-                    }
-                });
-                return interaction.followUp(`⏱️ | Loaded **${result.playlist ? 'playlist' : track.title}**!`);
+                    });
+                    return interaction.followUp(`⏱️ | Loaded **${result.playlist ? 'playlist' : track.title}**!`);
+                } catch (playError) {
+                    console.error('Player Play Error:', playError);
+                    return interaction.followUp(`❌ | Failed to play the track: ${playError.message}`);
+                }
             }
         } catch (e) {
-            console.error(e);
-            return interaction.followUp('❌ | Something went wrong while trying to play that song.');
+            console.error('Search Error:', e);
+            return interaction.followUp('❌ | Something went wrong while searching for that song.');
         }
     }
 

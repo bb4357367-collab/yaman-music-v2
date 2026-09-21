@@ -24,6 +24,11 @@ const player = new Player(client);
 
 // This will load default extractors like YouTube, Spotify, SoundCloud, etc.
 player.extractors.loadMulti(DefaultExtractors);
+player.extractors.defaultConfig = {
+    YouTubeExtractor: {
+        bridgeProvider: 'SoundCloudExtractor'
+    }
+};
 
 // Setup player events
 player.events.on('playerStart', (queue, track) => {
