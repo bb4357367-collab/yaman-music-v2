@@ -169,6 +169,15 @@ async function handleCommand(interaction, player) {
         }
     }
 
+    if (commandName === 'leave') {
+        if (queue) queue.delete();
+        // Force disconnect using discord-player's connection manager
+        try {
+            player.voiceUtils.disconnect(interaction.guild.id);
+        } catch(e) {}
+        return interaction.reply('👋 | Left the voice channel.');
+    }
+
     if (!queue || !queue.isPlaying()) {
         return interaction.reply({ content: '❌ | No music is currently being played!', ephemeral: true });
     }
@@ -200,11 +209,6 @@ async function handleCommand(interaction, player) {
     if (commandName === 'stop') {
         queue.delete();
         return interaction.reply('🛑 | Stopped the music and cleared the queue.');
-    }
-
-    if (commandName === 'leave') {
-        queue.delete();
-        return interaction.reply('👋 | Left the voice channel.');
     }
 
     if (commandName === 'volume') {
