@@ -37,10 +37,12 @@ player.events.on('playerStart', (queue, track) => {
 
 player.events.on('error', (queue, error) => {
     console.log(`[Error generated from queue] ${error.message}`);
+    queue.metadata.channel.send(`❌ | Queue error: ${error.message}`);
 });
 
 player.events.on('playerError', (queue, error) => {
     console.log(`[Error generated from connection] ${error.message}`);
+    queue.metadata.channel.send(`❌ | Audio connection error (Is FFmpeg installed?): ${error.message}`);
 });
 
 client.on('ready', async () => {
