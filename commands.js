@@ -132,8 +132,10 @@ async function handleCommand(interaction, player) {
         const query = interaction.options.getString('query');
         
         try {
+            const { QueryType } = require('discord-player');
             const result = await player.search(query, {
-                requestedBy: interaction.user
+                requestedBy: interaction.user,
+                searchEngine: QueryType.SOUNDCLOUD_SEARCH
             });
 
             if (!result || !result.tracks.length) {

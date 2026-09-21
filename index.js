@@ -62,6 +62,12 @@ player.events.on('playerError', (queue, error) => {
 
 player.events.on('debug', (queue, message) => {
     console.log(`[Debug] ${message}`);
+    // If the debug message is related to stream ending, ffmpeg, or errors, send to discord
+    if (message.toLowerCase().includes('ffmpeg') || message.toLowerCase().includes('stream') || message.toLowerCase().includes('error')) {
+        if (queue && queue.metadata && queue.metadata.channel) {
+            queue.metadata.channel.send(`🛠️ | Debug: ${message.substring(0, 100)}`);
+        }
+    }
 });
 
 client.on('ready', async () => {
