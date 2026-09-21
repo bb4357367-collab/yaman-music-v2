@@ -171,10 +171,11 @@ async function handleCommand(interaction, player) {
 
     if (commandName === 'leave') {
         if (queue) queue.delete();
-        // Force disconnect using discord-player's connection manager
         try {
-            player.voiceUtils.disconnect(interaction.guild.id);
-        } catch(e) {}
+            interaction.guild.members.me.voice.disconnect();
+        } catch(e) {
+            console.log('Could not force destroy connection', e);
+        }
         return interaction.reply('👋 | Left the voice channel.');
     }
 
