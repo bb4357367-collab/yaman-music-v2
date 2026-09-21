@@ -1,6 +1,6 @@
 require('dotenv').config();
 const fs = require('fs');
-const ffmpegPath = require('ffmpeg-static');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 
 // Force FFmpeg path and make sure it has execution permissions on Linux (Render)
 process.env.FFMPEG_PATH = ffmpegPath;

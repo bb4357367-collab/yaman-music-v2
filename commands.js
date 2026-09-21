@@ -153,6 +153,8 @@ async function handleCommand(interaction, player) {
                                 channel: interaction.channel
                             },
                             volume: 100,
+                            disableBiquad: true,
+                            disableFilterer: true,
                             leaveOnEmpty: true,
                             leaveOnEmptyCooldown: 300000,
                             leaveOnEnd: true,
