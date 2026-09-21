@@ -1,21 +1,17 @@
-﻿{
+{
   "name": "discord-music-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Discord Music Bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo "Error: no test specified" && exit 1"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@discord-player/extractor": "^7.2.0",
     "discord-player": "^7.2.0",
     "discord.js": "^14.27.0",
     "dotenv": "^18.0.1",
+    "express": "^4.18.2",
     "ffmpeg-static": "^5.3.0"
   }
 }
