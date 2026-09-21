@@ -35,15 +35,19 @@ const player = new Player(client);
 
 // This will load default extractors like YouTube, Spotify, SoundCloud, etc.
 player.extractors.loadMulti(DefaultExtractors);
-player.extractors.defaultConfig = {
-    YouTubeExtractor: {
-        bridgeProvider: 'SoundCloudExtractor'
-    }
-};
 
 // Setup player events
 player.events.on('playerStart', (queue, track) => {
     queue.metadata.channel.send(`🎵 | Now playing **${track.title}**!`);
+});
+
+player.events.on('playerFinish', (queue, track) => {
+    console.log(`[Track Finished] ${track.title}`);
+});
+
+player.events.on('emptyQueue', (queue) => {
+    console.log('[Queue Empty]');
+    queue.metadata.channel.send(`🎵 | Queue finished!`);
 });
 
 player.events.on('error', (queue, error) => {
@@ -53,7 +57,11 @@ player.events.on('error', (queue, error) => {
 
 player.events.on('playerError', (queue, error) => {
     console.log(`[Error generated from connection] ${error.message}`);
-    queue.metadata.channel.send(`❌ | Audio connection error (Is FFmpeg installed?): ${error.message}`);
+    queue.metadata.channel.send(`❌ | Audio error: ${error.message}`);
+});
+
+player.events.on('debug', (queue, message) => {
+    console.log(`[Debug] ${message}`);
 });
 
 client.on('ready', async () => {
