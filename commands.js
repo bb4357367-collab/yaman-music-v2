@@ -150,6 +150,8 @@ async function handleCommand(interaction, player) {
                             metadata: {
                                 channel: interaction.channel
                             },
+                            selfDeaf: true,
+                            volume: 100,
                             leaveOnEmpty: true,
                             leaveOnEmptyCooldown: 300000,
                             leaveOnEnd: true,
