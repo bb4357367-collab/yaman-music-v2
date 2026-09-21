@@ -1,4 +1,15 @@
 require('dotenv').config();
+const fs = require('fs');
+const ffmpegPath = require('ffmpeg-static');
+
+// Force FFmpeg path and make sure it has execution permissions on Linux (Render)
+process.env.FFMPEG_PATH = ffmpegPath;
+try {
+    fs.chmodSync(ffmpegPath, 0o755);
+} catch (e) {
+    console.log('Could not set ffmpeg permissions (might already be set).');
+}
+
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
 const { Player } = require('discord-player');
 const { DefaultExtractors } = require('@discord-player/extractor');
